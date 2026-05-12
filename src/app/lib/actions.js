@@ -21,6 +21,22 @@ export const createUser = async (formData) => {
     return data;
 }
 
+export const updateUser = async (formData) => {
+    'use server';
+    
+    const updatedUser = Object.fromEntries(formData.entries());
+    const res = await fetch(``, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedUser)
+    })
+    const data = await res.json();
+
+    return data;
+}
+
 export const deleteUser = async (userId) => {
     'use server';
 
