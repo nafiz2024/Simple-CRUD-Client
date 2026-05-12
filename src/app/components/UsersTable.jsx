@@ -2,12 +2,11 @@
 
 import { AlertDialog, Button } from "@heroui/react";
 import Link from "next/link";
-import { deleteUser } from "../lib/actions";
 
-const UsersTable = ({ users }) => {
+const UsersTable = ({ users, deleteUserAction }) => {
 
     const handleDelete = async (userId) => {
-        await deleteUser(userId);
+        await deleteUserAction(userId);
     }
 
     return (
@@ -70,9 +69,20 @@ const UsersTable = ({ users }) => {
                                         <Button
                                             className="rounded-full border border-cyan-200 bg-cyan-50 px-5 font-semibold text-cyan-700 shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:border-cyan-300 hover:bg-cyan-100"
                                             variant="light"
+                                            >
+                                                View Details
+                                            </Button>
+                                        </Link>
+                                        <Link
+                                            href={`/users/${user._id}/edit`}
+                                            className="inline-flex text-amber-700 hover:text-amber-800"
                                         >
-                                            View Details
-                                        </Button>
+                                            <Button
+                                                className="rounded-full border border-amber-200 bg-amber-50 px-5 font-semibold text-amber-700 shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:border-amber-300 hover:bg-amber-100"
+                                                variant="light"
+                                            >
+                                                Edit
+                                            </Button>
                                         </Link>
                                         <AlertDialog>
                                             <Button

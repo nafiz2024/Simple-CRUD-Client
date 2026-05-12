@@ -1,3 +1,7 @@
+import { revalidatePath } from "next/cache";
+
+
+
 export const deleteUser = async (userId) => {
     'use server';
 
@@ -5,5 +9,8 @@ export const deleteUser = async (userId) => {
         method: 'DELETE',
     });
     const data = await res.json();
+    if(data.deletedCount > 0) {
+        revalidatePath('/users');
+    }
     return data;
 }

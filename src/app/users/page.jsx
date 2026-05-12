@@ -1,5 +1,7 @@
 import { getUsers } from "../lib/data";
+import AddUserModal from "../components/AddUserModal";
 import UsersTable from "../components/UsersTable";
+import {deleteUser } from "../lib/actions";
 
 const UsersPage = async () => {
     const users = await getUsers();
@@ -20,6 +22,9 @@ const UsersPage = async () => {
                                 Registered users list from your API with quick role and contact details.
                             </p>
                         </div>
+                        <div>
+                            <AddUserModal/>
+                        </div>
                     </div>
 
                     <div className="w-full rounded-[1.5rem] bg-slate-900 p-5 text-white shadow-lg sm:max-w-xs">
@@ -39,7 +44,7 @@ const UsersPage = async () => {
                         </p>
                     </div>
                 ) : (
-                    <UsersTable users={users} />
+                    <UsersTable users={users} deleteUserAction = {deleteUser} />
                 )}
             </div>
         </section>
