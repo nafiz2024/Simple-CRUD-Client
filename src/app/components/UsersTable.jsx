@@ -1,7 +1,15 @@
-import { Button } from "@heroui/react";
+"use client";
+
+import { AlertDialog, Button } from "@heroui/react";
 import Link from "next/link";
+import { deleteUser } from "../lib/actions";
 
 const UsersTable = ({ users }) => {
+
+    const handleDelete = async (userId) => {
+        await deleteUser(userId);
+    }
+
     return (
         <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_24px_60px_-24px_rgba(15,23,42,0.2)]">
             <div className="overflow-x-auto">
@@ -59,19 +67,59 @@ const UsersTable = ({ users }) => {
                                             href={`/users/${user._id}`}
                                             className="inline-flex text-cyan-600 hover:text-cyan-800"
                                         >
-                                            <Button
-                                                className="rounded-full border border-cyan-200 bg-cyan-50 px-5 font-semibold text-cyan-700 shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:border-cyan-300 hover:bg-cyan-100"
-                                                variant="light"
-                                            >
-                                                View Details
-                                            </Button>
-                                        </Link>
                                         <Button
-                                            className="rounded-full border border-rose-200 bg-rose-50 px-5 font-semibold text-rose-700 shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:border-rose-300 hover:bg-rose-100"
+                                            className="rounded-full border border-cyan-200 bg-cyan-50 px-5 font-semibold text-cyan-700 shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:border-cyan-300 hover:bg-cyan-100"
                                             variant="light"
                                         >
-                                            Delete
+                                            View Details
                                         </Button>
+                                        </Link>
+                                        <AlertDialog>
+                                            <Button
+                                                className="rounded-full border border-rose-200 bg-rose-50 px-5 font-semibold text-rose-700 shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:border-rose-300 hover:bg-rose-100"
+                                                variant="light"
+                                            >
+                                                Delete
+                                            </Button>
+                                            <AlertDialog.Backdrop>
+                                                <AlertDialog.Container>
+                                                    <AlertDialog.Dialog className="border border-slate-200 bg-white text-slate-900 shadow-2xl sm:max-w-[420px]">
+                                                        <AlertDialog.CloseTrigger />
+                                                        <AlertDialog.Header className="items-start gap-4">
+                                                            <AlertDialog.Icon status="danger" />
+                                                            <AlertDialog.Heading className="text-2xl font-bold text-slate-900">
+                                                                Delete user permanently?
+                                                            </AlertDialog.Heading>
+                                                        </AlertDialog.Header>
+                                                        <AlertDialog.Body className="text-base leading-7 text-slate-600">
+                                                            <p className="text-slate-600">
+                                                                This will permanently delete{" "}
+                                                                <strong className="font-semibold text-slate-900">{user.name}</strong> and all
+                                                                related data. This action cannot be
+                                                                undone.
+                                                            </p>
+                                                        </AlertDialog.Body>
+                                                        <AlertDialog.Footer className="gap-3">
+                                                            <Button
+                                                                slot="close"
+                                                                className="rounded-full border border-slate-200 bg-slate-100 px-5 font-semibold text-slate-700 hover:bg-slate-200"
+                                                                variant="light"
+                                                            >
+                                                                Cancel
+                                                            </Button>
+                                                            <Button
+                                                                slot="close"
+                                                                onClick={() => handleDelete(user._id)}
+                                                                className="rounded-full bg-rose-500 px-5 font-semibold text-white hover:bg-rose-600"
+                                                                variant="solid"
+                                                            >
+                                                                Delete User
+                                                            </Button>
+                                                        </AlertDialog.Footer>
+                                                    </AlertDialog.Dialog>
+                                                </AlertDialog.Container>
+                                            </AlertDialog.Backdrop>
+                                        </AlertDialog>
                                     </div>
                                 </td>
                             </tr>
