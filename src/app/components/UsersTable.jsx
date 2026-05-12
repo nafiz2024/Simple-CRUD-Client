@@ -19,7 +19,6 @@ const UsersTable = ({ users, deleteUserAction }) => {
                             <th className="px-6 py-4 font-semibold">Name</th>
                             <th className="px-6 py-4 font-semibold">Email</th>
                             <th className="px-6 py-4 font-semibold">Role</th>
-                            <th className="px-6 py-4 font-semibold">User ID</th>
                             <th className="px-6 py-4 text-right font-semibold">Action</th>
                         </tr>
                     </thead>
@@ -53,11 +52,6 @@ const UsersTable = ({ users, deleteUserAction }) => {
                                 <td className="px-6 py-5">
                                     <span className="rounded-full bg-cyan-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-700">
                                         {user.role}
-                                    </span>
-                                </td>
-                                <td className="px-6 py-5 font-mono text-sm text-slate-500">
-                                    <span className="block max-w-[220px] truncate">
-                                        {user._id}
                                     </span>
                                 </td>
                                 <td className="px-6 py-5 text-right">
