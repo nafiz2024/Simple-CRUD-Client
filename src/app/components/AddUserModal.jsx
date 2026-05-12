@@ -2,12 +2,21 @@
 
 import { CirclePlus } from "@gravity-ui/icons";
 import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
+import { useState } from "react";
 
 const AddUserModal = ({ createUserAction }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const handleSubmit = async (formData) => {
+        await createUserAction(formData);
+        setIsOpen(false);
+    };
+
     return (
-        <Modal>
+        <Modal isOpen={isOpen} onOpenChange={setIsOpen}>
             <Button
-                className="rounded-full bg-cyan-500 px-6 font-semibold text-white shadow-sm transition hover:bg-cyan-600"
+                className="rounded-full bg-slate-900 px-6 py-3 font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-800"
+                onClick={() => setIsOpen(true)}
                 variant="solid"
             >
                 Add User
@@ -34,7 +43,7 @@ const AddUserModal = ({ createUserAction }) => {
 
                         <Modal.Body className="p-6">
                             <Surface className="rounded-[1.5rem] bg-slate-50 p-5" variant="default">
-                                <form action={createUserAction} className="flex flex-col gap-4">
+                                <form action={handleSubmit} className="flex flex-col gap-4">
                                     <TextField className="w-full" name="name" type="text">
                                         <Label>Name</Label>
                                         <Input placeholder="Enter full name" />
